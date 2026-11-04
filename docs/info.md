@@ -1,20 +1,13 @@
-<!---
-
-This file is used to generate your project datasheet. Please fill in the information below and delete any unused
-sections.
-
-You can also include images in this folder and reference them in the markdown. Each image must be less than
-512 kb in size, and the combined size of all images must be less than 1 MB.
--->
-
 ## How it works
 
-Explain how your project works
+The circuit reads an unsigned 8-bit value from `ui_in` on each rising clock edge
+when `ena` is high. It compares the reading with the previous one and sets
+`uo_out[0]` to 1 if the absolute difference is greater than 20. The first
+reading after reset establishes the baseline and does not trigger an alarm.
 
 ## How to test
 
-Explain how to use your project
-
-## External hardware
-
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+Hold `rst_n` low for one rising clock edge, then set it high. With `ena` high,
+apply 50, 55, 75, and 96 on four successive rising clock edges. The expected
+alarm outputs are 0, 0, 0, and 1. The change from 55 to 75 is exactly 20,
+so it does not trigger the alarm.
